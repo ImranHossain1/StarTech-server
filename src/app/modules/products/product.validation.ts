@@ -13,12 +13,7 @@ const createProductZodSchema = z.object({
     }),
     status: z.string().optional(),
     rating: z.number().positive().optional(),
-    price: z
-      .string()
-      .nonempty()
-      .regex(/^\d+(\.\d{1,4})?$/, {
-        message: 'Price must be a positive number with up to 2 decimal places',
-      }),
+    price: z.number().positive(),
     description: z.string().nonempty({
       message: 'Description is required',
     }),
@@ -26,10 +21,13 @@ const createProductZodSchema = z.object({
     reviews: z
       .array(
         z.object({
-          user: z.string().nonempty(),
           rating: z.number().int().min(1).max(5),
-          comment: z.string().nonempty(),
-          date: z.string(),
+          comment: z.string().nonempty({
+            message: 'Comment is required',
+          }),
+          userName: z.string().nonempty({
+            message: 'User name is required',
+          }),
         })
       )
       .optional(),
@@ -42,13 +40,7 @@ const updateProductZodSchema = z.object({
     category: z.string().nonempty().optional(),
     status: z.string().optional(),
     rating: z.number().positive().optional(),
-    price: z
-      .string()
-      .nonempty()
-      .regex(/^\d+(\.\d{1,4})?$/, {
-        message: 'Price must be a positive number with up to 2 decimal places',
-      })
-      .optional(),
+    price: z.number().positive().optional(),
     description: z
       .string()
       .nonempty({
@@ -58,10 +50,8 @@ const updateProductZodSchema = z.object({
     key_features: z.record(z.union([z.string(), z.number()])).optional(),
     reviews: z
       .object({
-        user: z.string().nonempty(),
         rating: z.number().min(1).max(5),
         comment: z.string().nonempty(),
-        date: z.string(),
       })
       .optional(),
   }),

@@ -10,10 +10,10 @@ const validCategories: ICategory[] = [
   'processor',
   'motherboard',
   'ram',
-  'powerSupplyUnit',
-  'storageDevice',
+  'powersupplyunit',
+  'storagedevice',
   'monitor',
-  'other',
+  'others',
 ];
 const validStatus: IStatus[] = ['In Stock', 'Out of Stock'];
 
@@ -54,10 +54,6 @@ const ProductSchema = new Schema<IProduct>(
     },
     reviews: [
       {
-        user: {
-          type: String,
-          required: true,
-        },
         rating: {
           type: Number,
           required: true,
@@ -66,7 +62,7 @@ const ProductSchema = new Schema<IProduct>(
           type: String,
           required: true,
         },
-        date: {
+        userName: {
           type: String,
           required: true,
         },

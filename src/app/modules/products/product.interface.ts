@@ -4,18 +4,17 @@ export type ICategory =
   | 'processor'
   | 'motherboard'
   | 'ram'
-  | 'powerSupplyUnit'
-  | 'storageDevice'
+  | 'powersupplyunit'
+  | 'storagedevice'
   | 'monitor'
-  | 'other';
+  | 'others';
 
 export type IStatus = 'In Stock' | 'Out of Stock';
 
 export type IReview = {
-  user: string;
   rating: number;
   comment: string;
-  date: string;
+  userName: string;
 };
 
 export type IKeyFeatures = {

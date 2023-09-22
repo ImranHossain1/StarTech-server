@@ -1,116 +1,68 @@
-# Book World Server
+# PC Builder Website with Next.js
 
-This is the backend server for the Book World application, built with MongoDB, Node.js, and ReactJS.
+Welcome to the PC Builder website built using Next.js, a React framework known for server-side rendering (SSR), static site generation (SSG), and incremental static regeneration (ISR). This project helps users select and build their custom PCs with ease.
 
-**Root API Endpoint**: [https://book-world-server.vercel.app/api/v1/](https://book-world-server.vercel.app/api/v1/)
+**Live Client Site Link**: [Smart Tech Pc Builder Client](https://pc-builder-client-pied.vercel.app/)
 
-**Live Client Site Link**: [https://mydream-book-store.netlify.app/](https://mydream-book-store.netlify.app/)
+**Live Server Site Link**: [Smart Tech Pc Builder Server](https://next-gen-pc-builder-server.vercel.app/api/v1/)
 
-**GitHub Client Site Link**: [https://github.com/ImranHossain1/book-store-client](https://github.com/ImranHossain1/book-store-client)
+**GitHub Client Site Link**: [Smart Tech Pc Builder Client Side Code](https://github.com/ImranHossain1/starTech-NextJs-Client)
 
-**GitHub Server Site Link**: [https://github.com/ImranHossain1/book-world-server](https://github.com/ImranHossain1/book-world-server)
-
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Introduction
-
-The Book World Server serves as the backend for the Book World application. It provides the necessary APIs and services for the client-side application to function. This server handles user authentication, book data storage, and more.
+**GitHub Server Site Link**: [Smart Tech Pc Builder Server Side code](https://github.com/ImranHossain1/StarTech-server)
 
 ## Features
 
-- User Authentication: Secure user registration and login.
-- Book Management: Create, update, and delete book data.
-- User Management: Manage user data and profiles.
-- API Endpoints: Access various API endpoints for the Book World client application.
+### Navbar Setup
 
-## Getting Started
+- A clean and feature-rich Navbar with the following buttons:
+  - "All Products": Takes users to a page displaying all available products.
+  - "Create New Product": Authenticated users can use this button to create new product listings, including images hosted on imgBB.
+  - "Dynamic Login": The login button dynamically appears for unauthenticated users, allowing them to log in using NextAuth with social login providers (Google/Github).
 
-Follow these instructions to set up and run the server locally or deploy it to your preferred hosting platform.
+### Home Page (SSG and ISR)
 
-### Prerequisites
+- The home page is statically generated (SSG) and showcases at least 6 random Featured Products.
+- Each product displays essential details like image, product name, category, price, stock status, and rating.
+- Clicking on a product takes the user to the product detail page.
+- ISR is implemented to periodically regenerate the home page to ensure up-to-date product listings.
 
-Before you begin, ensure you have the following installed:
+### Featured Categories (SSR)
 
-- Node.js: Download and install Node.js from [nodejs.org](https://nodejs.org/).
-- MongoDB: Set up a MongoDB database for storing application data.
+- The Featured Categories section on the home page is rendered on the server-side (SSR).
+- Each category is clickable and redirects the user to a separate page displaying at least 3 products from that category.
 
-### Installation
+### Product Detail Page (SSG and ISR) with User Reviews and Ratings
 
-1. Clone the repository:
+- A detailed product page for each PC component displaying essential information such as image, product name, category, stock status, price, description, key features, individual rating, average rating, and reviews.
+- Authenticated users can leave reviews and ratings on the product detail page.
+- The product's overall rating is dynamically updated based on user ratings and reviews.
 
-   ```bash
-   git clone https://github.com/YourUsername/book-world-server.git
-   ```
+### PC Builder Page (SSR) with Shopping Cart
 
-2. Navigate to the project directory:
+- The PC Builder page is designed using server-side rendering (SSR).
+- It includes category sections for CPU, motherboard, RAM, PSU, storage, and monitor.
+- Each section has a "Choose/Select" button, leading to another page displaying at least 3 components of the specific category.
+- Users can select components and add them to their shopping cart.
+- The page displays the total cost of all selected products.
 
-   ```bash
-   cd book-world-server
-   ```
+### Add To Builder Functionality
 
-3. Install the required dependencies:
+- Implemented an "Add To Builder" button on each component card in the category pages.
+- Clicking the button redirects the user to the PC Builder page and updates the state with the selected component.
+- Redux/Context API is used to manage the central store for this feature.
 
-```bash
-npm install
-```
+### Checkout Page and Order Completion
 
-4. Create a .env file in the root directory with the following environment variables:
+- After adding products to the shopping cart, users can click on the "Checkout" button.
+- The checkout page displays the list of selected products, their quantities, and the total cost.
+- Users can complete the order from this page.
+- After completing the order, the shopping cart is emptied.
 
-```NODE_ENV = development
-PORT = 5000
-DATABASE_URL= mongodb+srv://yourdb:dbPass@cluster0.tuwxhwy.mongodb.net/?retryWrites=true&w=majority
+### Bonus: User Authentication (NextAuth)
 
+- The PC Builder page is a protected route accessible only to logged-in users.
+- User authentication is implemented using NextAuth with at least one social login provider (Google/Github).
 
-BCRYPT_SALT_ROUNDS = 12
+### Bonus: Responsive Design
 
-JWT_SECRET = 'your_own_secret'
-JWT_EXPIRERS_IN= 1d
-JWT_REFRESH_SECRET = 'your-refresh-secret'
-JWT_REFRESH_EXPIRES_IN = 365d
-
-```
-
-Replace your_mongodb_connection_uri with your MongoDB connection URI and your_secret_key with a secret key for JWT token generation.
-
-5. Start the server:
-
-   ````bash
-   npm run start```
-   ````
-
-   ## Usage
-
-Use the provided API endpoints to interact with the server. You can integrate this backend with the Book World client-side application or any other application that requires a backend service.
-
-## Project Structure
-
-The project structure is organized as follows:
-
-- `/src`: Contains the application's source code.
-  - `/models`: MongoDB models for data schemas.
-  - `/routes`: Defines API routes and controllers.
-  - `/middlewares`: Custom middleware functions.
-- `server.js`: Main server file.
-- `.env`: Environment variables file (create this file as mentioned in the Installation section).
-- `package.json`: Dependencies and scripts.
-- `README.md`: Project documentation.
-
-## Technologies Used
-
-- Node.js
-- Express.js
-- MongoDB
-- JWT (JSON Web Tokens)
-- Mongoose (ODM for MongoDB)
-- Other Node.js packages for various functionalities.
+- The entire application is designed to be responsive, ensuring a seamless experience on both mobile and desktop devices.

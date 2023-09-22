@@ -99,19 +99,20 @@ const updateProduct = async (
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Product Not Found');
   }
+
   const { ...ProductData } = payload;
   const updatedProductData: Partial<IProduct> = { ...ProductData };
 
   let result;
+
   if (review) {
-    if (isExist) {
-      const reviews = [isExist.reviews ?? [], review];
-      const totalRating = reviews.reduce((sum, r) => sum + r.rating!, 0);
-      const averageRating = totalRating / reviews.length;
-      updatedProductData.rating = averageRating;
-    } else {
-      updatedProductData.rating = review.rating;
-    }
+    let reviews = isExist.reviews || []; // Use isExist.reviews if it exists, otherwise create an empty array
+    reviews = reviews.concat(review); // Concatenate the review to the array
+
+    const totalRating = reviews.reduce((sum, r) => sum + r.rating, 0);
+    const averageRating = totalRating / reviews.length;
+
+    updatedProductData.rating = parseFloat(averageRating.toFixed(2));
     result = await Product.findByIdAndUpdate(
       id,
       {
@@ -124,6 +125,7 @@ const updateProduct = async (
   result = await Product.findOneAndUpdate({ _id: id }, updatedProductData, {
     new: true,
   });
+
   return result;
 };
 
